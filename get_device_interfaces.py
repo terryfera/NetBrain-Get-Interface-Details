@@ -3,6 +3,7 @@ import time
 import urllib3
 import pprint
 import json
+import ipaddress
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 from rich.table import Table
 from rich.console import Console
@@ -125,6 +126,7 @@ for dev in result['devices']:
     table.add_column("Interface", style="dodger_blue1", no_wrap=True)
     table.add_column("Description", style="magenta", no_wrap=True)
     table.add_column("IP Address", style="white", no_wrap=True)
+    table.add_column("Mask", style="white", no_wrap=True)
     table.add_column("VLAN", style="spring_green4", no_wrap=True)
     table.add_column("VRF", style="red", no_wrap=True)
     
@@ -148,9 +150,14 @@ for dev in result['devices']:
     for interface in dev_result['interfaces']:
         
         try:
-            ip_addr = int_result['attributes'][interface]['ips'][0]['ipLoc']
+            ip_addr = ipaddress.ip_address(int_result['attributes'][interface]['ips'][0]['ip']).__str__()
         except:
             ip_addr = "none"
+
+        try:
+            ip_mask = str(int_result['attributes'][interface]['ips'][0]['maskLen'])
+        except:
+            ip_mask = "none"
         
         try:
             int_desc = int_result['attributes'][interface]['descr']
@@ -169,7 +176,7 @@ for dev in result['devices']:
 
 
         
-        table.add_row(interface, int_desc, ip_addr, int_vlan, int_vrf)
+        table.add_row(interface, int_desc, ip_addr, ip_mask, int_vlan, int_vrf)
 
     console = Console()
     console.print(table)
