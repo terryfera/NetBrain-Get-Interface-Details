@@ -2,3 +2,4 @@
 .vscode
 init.sh
 config.py
+__pycache__
