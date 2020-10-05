@@ -16,4 +16,4 @@ This script will get all devices from a NetBrain Domain and then list each devic
 
 Run the script from the CLI.
 
-![Output Example](images\device_output.png "Example output for device")
+![Output Example](https://github.com/terryfera/NetBrain-Get-Interface-Details/blob/main/images/device_output.png "Example output for device")
