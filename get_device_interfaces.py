@@ -22,16 +22,11 @@ headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 login_url = "/ServicesAPI/API/V1/Session"
 
 try:
-    # Do the HTTP request
     response = requests.post(nb_url + login_url, headers=headers, data = json.dumps(body), verify=False)
-    # Check for HTTP codes other than 200
     if response.status_code == 200:
-        # Decode the JSON response into a dictionary and use the data
         js = response.json()
-        # Put token into variable to use later
         token = js['token']
         headers["Token"] = token
-        #print (js)
     else:
         print ("Get token failed! - " + str(response.text))
 except Exception as e:
@@ -64,19 +59,12 @@ except Exception as e:
 # Get Device Attributes
 
 query_device = "dc-rt01"
-
-#get_dev_att_url = "/ServicesAPI/API//V1/CMDB/Devices/Attributes?hostname=" + str(query_device)
 get_dev_att_url = "/ServicesAPI/API/V1/CMDB/Devices"
 
 try:
-    # Do the HTTP request
     response = requests.get(nb_url + get_dev_att_url, data=json.dumps(body), headers=headers, verify=False)
-    # Check for HTTP codes other than 200
     if response.status_code == 200:
-        # Decode the JSON response into a dictionary and use the data
         result = response.json()
-        #print ("Get Device Attributes: ")
-        #print (result)
     elif response.status_code != 200:
         print ("Get Device Attributes Failed - " + str(response.text))
 
@@ -106,14 +94,9 @@ for dev in result['devices']:
     get_dev_att_url = "/ServicesAPI/API//V1/CMDB/Interfaces/?hostname=" + query_device
 
     try:
-        # Do the HTTP request
         response = requests.get(nb_url + get_dev_att_url, data=json.dumps(body), headers=headers, verify=False)
-        # Check for HTTP codes other than 200
         if response.status_code == 200:
-            # Decode the JSON response into a dictionary and use the data
             dev_result = response.json()
-            #print ("Get Device Attributes: ")
-            #print (result)
         elif response.status_code != 200:
             print ("Get Device Attributes Failed - " + str(response.text))
 
@@ -133,14 +116,9 @@ for dev in result['devices']:
     get_int_att_url = "/ServicesAPI/API//V1/CMDB/Interfaces/Attributes?hostname=" + query_device
 
     try:
-        # Do the HTTP request
         response = requests.get(nb_url + get_int_att_url, data=json.dumps(body), headers=headers, verify=False)
-        # Check for HTTP codes other than 200
         if response.status_code == 200:
-            # Decode the JSON response into a dictionary and use the data
             int_result = response.json()
-            #print ("Get Interface Attributes: ")
-            #print (int_result)
         elif response.status_code != 200:
             print ("Get Device Attributes Failed - " + str(response.text))
 
