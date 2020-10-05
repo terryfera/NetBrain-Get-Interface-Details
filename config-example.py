@@ -1,0 +1,5 @@
+nb_url = "https://my.netbrain.url"
+username = "user"
+password = "password"
+tenantID = "ad8dd369-3ab9-b911-ebc1-5afe50c5f621"
+domainID = "de3e5edb-cf2c-44b7-8a48-f92b9b1b9154"

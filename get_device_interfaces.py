@@ -4,22 +4,22 @@ import urllib3
 import pprint
 import json
 import ipaddress
+import config
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 from rich.table import Table
 from rich.console import Console
 
-# Login script
-
-body = {
-    "username" : "admin",      
-    "password" : "P@ssw0rd"  
-}
-
-nb_url = "https://nb80.thegorbit.net"          
+nb_url = config.nb_url
 
 # Set proper headers
 headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}    
 login_url = "/ServicesAPI/API/V1/Session"
+
+# Login script
+body = {
+    "username" : config.username,      
+    "password" : config.password  
+}
 
 try:
     response = requests.post(nb_url + login_url, headers=headers, data = json.dumps(body), verify=False)
@@ -37,8 +37,8 @@ except Exception as e:
 set_domain_url = "/ServicesAPI/API/V1/Session/CurrentDomain"
 
 body = {
-  "tenantId": "ad8dd369-3ab9-b911-ebc1-5afe50c5f621",
-  "domainId": "de3e5edb-cf2c-44b7-8a48-f92b9b1b9154"
+  "tenantId": config.tenantID,
+  "domainId": config.domainID
 }
 
 try:
